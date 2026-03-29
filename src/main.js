@@ -27,6 +27,12 @@ function calculateBonusByProfit(index, total, seller) {
  */
 function analyzeSalesData(data, options) {
     // @TODO: Проверка входных данных
+    if (!data
+        || (!Array.isArray(data.sellers) && !Array.isArray(data.products) && !Array.isArray(data.purchase_records))
+        || ((data.sellers.length === 0) && (data.products.length === 0) && (data.purchase_records === 0))
+    ) {
+        throw new Error('Некорректные входные данные');
+    }
 
     // @TODO: Проверка наличия опций
 
@@ -42,3 +48,17 @@ function analyzeSalesData(data, options) {
 
     // @TODO: Подготовка итоговой коллекции с нужными полями
 }
+
+
+/**function groupBy(array, KeyFn) {
+    return array.reduce((aac, item) => {
+        const key = KeyFn(item);
+        if (!aac[key]) aac[key] = [];
+        aac[key].push(item);
+        return aac;
+    }, {});
+} 
+
+const recordsBySeller = groupBy(data.purchase_records, record => record.seller_id);
+
+console.log('###recordsBySeller###', recordsBySeller);*/
