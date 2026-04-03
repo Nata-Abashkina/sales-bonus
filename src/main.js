@@ -8,7 +8,7 @@ function calculateSimpleRevenue(purchase, _product) {
    // @TODO: Расчет выручки от операции
 
    const { discount = 0, sale_price, quantity } = purchase;
-   const revenue = sale_price * quantity * (1 - discount / 100);
+   const revenue = +(sale_price * quantity * (1 - discount / 100)).toFixed(2);
 
    return revenue;
 }
@@ -98,9 +98,9 @@ function analyzeSalesData(data, options) {
 
           record.items.forEach(item =>{
             const product = productIndex[item.sku];
-            const cost = product.purchase_price * item.quantity;
+            const cost = +(product.purchase_price * item.quantity).toFixed(2);
             const revenue = calculateSimpleRevenue(item, product);
-            const profit = revenue - cost;
+            const profit = +(revenue - cost).toFixed(2);
 
             seller.revenue += revenue;
             seller.profit += profit;
@@ -136,10 +136,10 @@ function analyzeSalesData(data, options) {
     return sellerStats.map(seller => ({
         seller_id: seller.seller_id,
         name: seller.name,
-        revenue: +seller.revenue.toFixed(2),
-        profit: +seller.profit.toFixed(2),
+        revenue: seller.revenue,
+        profit: seller.profit,
         sales_count: seller.sales_count,
         top_products: seller.top_products,
-        bonus: +seller.bonus.toFixed(2)
+        bonus: seller.bonus
     })); 
 }
