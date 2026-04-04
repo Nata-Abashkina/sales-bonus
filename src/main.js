@@ -10,7 +10,7 @@ function calculateSimpleRevenue(purchase, _product) {
    const { discount = 0, sale_price, quantity } = purchase;
    const revenue = sale_price * quantity * (1 - discount / 100);
 
-   return revenue;
+   return +revenue.toFixed(2);
 }
 
 /**
@@ -73,7 +73,7 @@ function analyzeSalesData(data, options) {
         revenue: 0,
         profit: 0,
         sales_count: 0,
-        top_products: [],
+        top_products: {},
         bonus: 0
     }));
 
@@ -139,7 +139,7 @@ function analyzeSalesData(data, options) {
         name: seller.name,
         revenue: +seller.revenue.toFixed(2),
         profit: +seller.profit.toFixed(2),
-        sales_count: seller.sales_count,
+        sales_count: +seller.sales_count.toFixed(2),
         top_products: seller.top_products,
         bonus: +seller.bonus.toFixed(2)
     })); 
